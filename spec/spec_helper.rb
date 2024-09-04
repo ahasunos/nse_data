@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require 'nse_data'
+require 'webmock/rspec'
+
+# Disable external requests to ensure all requests are stubbed
+WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
