@@ -39,3 +39,6 @@ Gemfile.lock
 
 # Ignore RSpec status file
 .rspec_status
+
+# Ignore byebug history
+.byebug_history
