@@ -9,3 +9,11 @@ api = NseData.special_preopen_api
 response = api.fetch
 # require "byebug"; byebug
 puts response
+
+client = NseData::Client.new
+
+# Fetch data from the special pre-open listing endpoint
+response = client.get('special-preopen-listing')
+
+# Output the response (which is a Hash)
+puts response
