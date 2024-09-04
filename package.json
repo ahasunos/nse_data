@@ -1,2 +1,23 @@
-npm init -y
-npm install semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/commit-analyzer @semantic-release/release-notes-generator
+{
+  "name": "nse_data",
+  "version": "1.0.0",
+  "description": "**NseData** is a Ruby gem for retrieving stock market data from the National Stock Exchange (NSE) of India. It provides a simple interface to interact with NSE's APIs and fetch real-time and historical stock market data.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^10.3.2",
+    "@semantic-release/release-notes-generator": "^14.0.1",
+    "semantic-release": "^24.1.0"
+  }
+}
