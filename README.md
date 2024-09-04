@@ -1,34 +1,72 @@
 # NseData
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/nse_data`. To experiment with that code, run `bin/console` for an interactive prompt.
+**NseData** is a Ruby gem for retrieving stock market data from the National Stock Exchange (NSE) of India. It provides a simple interface to interact with NSE's APIs and fetch real-time and historical stock market data.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
 
-Install the gem and add to the application's Gemfile by executing:
+```ruby
+gem 'nse_data'
+```
+And then execute:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```bash
+bundle install
+```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+Or install it yourself as:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```bash
+gem install nse_data
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+To use the gem, create a new instance of the NseData::Client and make API calls:
+
+```ruby
+require 'nse_data'
+
+client = NseData::Client.new
+
+# Fetch data from the special pre-open listing endpoint
+response = client.get('special-preopen-listing')
+
+# Output the response (which is a Hash)
+puts response
+```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+To contribute to this gem, follow these steps:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+1. Fork the repository.
+2. Create a new branch (git checkout -b feature-branch).
+3. Make your changes.
+4. Write tests for your changes.
+5. Run the tests (bundle exec rspec).
+6. Submit a pull request.
+
+### Running Tests
+To run the test suite, use:
+
+```bash
+bundle exec rspec
+```
+### Code Style
+The gem uses RuboCop for linting and code style enforcement. Run RuboCop with:
+
+```bash
+bundle exec rubocop
+```
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/nse_data. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/nse_data/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/ahasunos/nse_data. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/nse_data/blob/master/CODE_OF_CONDUCT.md).
+
+Please make sure to update tests as appropriate.
 
 ## License
 
@@ -37,3 +75,13 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the NseData project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/nse_data/blob/master/CODE_OF_CONDUCT.md).
+
+## Upcoming Features
+Here’s a glimpse of what’s planned for future dev:
+
+- Support for Additional Endpoints: We aim to support more NSE API endpoints, allowing you to fetch a wider range of market data.
+- Enhanced Error Handling: Improve the gem's error handling to provide more informative error messages.
+- Caching Mechanism: Implement caching to reduce the number of API calls and improve performance.
+- Historical Data: Add support for fetching historical market data.
+- Rate Limiting: Integrate rate limiting to handle NSE API’s rate limits more effectively.
+- Improved Documentation: Enhance documentation with more examples and detailed usage instructions.
