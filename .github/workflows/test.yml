@@ -20,7 +20,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.2 # Specify the Ruby version you're using
+        ruby-version: 3.2
         bundler-cache: true # Cache the gems for faster builds
 
     - name: Install dependencies
@@ -28,3 +28,9 @@ jobs:
 
     - name: Run tests
       run: bundle exec rspec
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: coverage/
