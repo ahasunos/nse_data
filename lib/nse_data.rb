@@ -5,6 +5,9 @@ require_relative 'nse_data/client'
 require_relative 'nse_data/api/base'
 require_relative 'nse_data/api/special_preopen'
 
+# The NseData module serves as the namespace for the NSE Data gem,
+# which provides an interface to interact with and retrieve stock market data
+# from the National Stock Exchange of India.
 module NseData
   class Error < StandardError; end
 

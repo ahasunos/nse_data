@@ -5,6 +5,9 @@ require 'json'
 require 'uri'
 
 module NseData
+  # NseData::Client is responsible for handling the HTTP requests
+  # and interacting with the NSE API endpoints. It provides methods
+  # for making GET requests and processing the responses.
   class Client
     BASE_URL = 'https://www.nseindia.com/api/'
 

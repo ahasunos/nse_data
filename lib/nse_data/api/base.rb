@@ -2,6 +2,8 @@
 
 module NseData
   module API
+    # NseData::API::Base serves as the base class for making API calls to the NSE.
+    # It contains shared functionality that other API classes can inherit and extend.
     class Base
       def initialize(client)
         @client = client
