@@ -42,3 +42,6 @@ Gemfile.lock
 
 # Ignore byebug history
 .byebug_history
+
+# Ignore node module
+node_modules/*
