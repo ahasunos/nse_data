@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'json'
-require "ostruct"
+require 'uri'
 
 module NseData
   class Client
@@ -17,7 +19,8 @@ module NseData
     end
 
     def get(endpoint)
-      response = @connection.get(endpoint)
+      url = URI.join(BASE_URL, endpoint).to_s
+      response = @connection.get(url)
       response.body
     rescue Faraday::Error => e
       # TODO: Introduce a centralized logger soon.
