@@ -11,7 +11,7 @@ module NseData
 
   # Add any additional code or configuration here
 
-  def self.get_all_endpoints
-    @endpoints ||= NseData::APIManager.new().load_endpoints
+  def self.list_all_endpoints
+    @list_all_endpoints ||= NseData::APIManager.new.load_endpoints
   end
 end

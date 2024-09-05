@@ -4,6 +4,7 @@ require 'yaml'
 require_relative 'http_client/faraday_client'
 
 module NseData
+  # APIManager class to handle calls
   class APIManager
     BASE_URL = 'https://www.nseindia.com/api/'
     def initialize
@@ -15,18 +16,19 @@ module NseData
     def fetch_data(endpoint_key)
       endpoint = @endpoints[endpoint_key]
       raise ArgumentError, "Invalid endpoint key: #{endpoint_key}" unless endpoint
-      @client.get(endpoint["path"])
+
+      @client.get(endpoint['path'])
     end
 
     def load_endpoints
       yaml_content = YAML.load_file(File.expand_path('config/api_endpoints.yml', __dir__))
-      yaml_content["apis"]
+      yaml_content['apis']
     end
 
     private
 
     def define_api_methods
-      @endpoints.each do |method_name, endpoint|
+      @endpoints.each_key do |method_name|
         self.class.define_method("get_#{method_name}") do
           fetch_data(method_name)
         end

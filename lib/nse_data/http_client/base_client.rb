@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lib/nse_data/http_client/base_client.rb
 module NseData
   module HttpClient

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lib/nse_data/http_client/faraday_client.rb
 require 'faraday'
 require 'json'
@@ -5,6 +7,7 @@ require_relative 'base_client'
 
 module NseData
   module HttpClient
+    # FaradayClient class
     class FaradayClient < BaseClient
       def get(endpoint)
         handle_connection do |connection|

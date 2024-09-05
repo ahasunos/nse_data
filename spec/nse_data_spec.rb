@@ -7,8 +7,8 @@ require 'nse_data/api_manager'
 RSpec.describe NseData do
   let(:api_endpoints) do
     {
-      "endpoint1" => { "path" => "/api/endpoint1" },
-      "endpoint2" => { "path" => "/api/endpoint2" }
+      'endpoint1' => { 'path' => '/api/endpoint1' },
+      'endpoint2' => { 'path' => '/api/endpoint2' }
     }
   end
 
@@ -19,9 +19,9 @@ RSpec.describe NseData do
     allow(NseData::APIManager).to receive(:new).and_return(api_manager_double)
   end
 
-  describe '.get_all_endpoints' do
+  describe '.list_all_endpoints' do
     it 'returns all endpoints loaded by APIManager' do
-      endpoints = NseData.get_all_endpoints
+      endpoints = NseData.list_all_endpoints
       expect(endpoints).to eq(api_endpoints)
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/nse_data/http_client/faraday_client_spec.rb
 require 'spec_helper'
 require 'nse_data/http_client/faraday_client'
@@ -7,7 +9,6 @@ RSpec.describe NseData::HttpClient::FaradayClient do
   let(:client) { described_class.new(base_url) }
 
   describe '#get' do
-
     context 'when a connection is successful' do
       it 'returns the response body' do
         endpoint = 'special-preopen-listing'
