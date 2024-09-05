@@ -27,8 +27,6 @@ module NseData
       @client.get(endpoint['path'])
     end
 
-    private
-
     # Loads the API endpoints from the configuration file.
     #
     # @return [Hash] The hash containing the loaded API endpoints.
@@ -36,6 +34,8 @@ module NseData
       yaml_content = YAML.load_file(File.expand_path('config/api_endpoints.yml', __dir__))
       yaml_content['apis']
     end
+
+    private
 
     # Defines dynamic API methods based on the loaded endpoints.
     def define_api_methods
