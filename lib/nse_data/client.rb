@@ -5,14 +5,15 @@ require 'json'
 require 'uri'
 
 module NseData
-  # NseData::Client is responsible for handling the HTTP requests
-  # and interacting with the NSE API endpoints. It provides methods
-  # for making GET requests and processing the responses.
+  # This class represents the client to interact with the NSE API.
   class Client
     BASE_URL = 'https://www.nseindia.com/api/'
 
-    def initialize
-      @connection = Faraday.new(url: BASE_URL) do |faraday|
+    # Initializes the client with a base URL.
+    #
+    # @param base_url [String] the base URL for the NSE API
+    def initialize(base_url = BASE_URL)
+      @connection = Faraday.new(url: base_url) do |faraday|
         faraday.adapter Faraday.default_adapter
         faraday.headers['User-Agent'] = 'NSEDataClient/1.0'
         faraday.response :json
@@ -21,6 +22,10 @@ module NseData
       end
     end
 
+    # Fetches data from the specified endpoint.
+    #
+    # @param endpoint [String] the API endpoint to fetch data from
+    # @return [Hash] the parsed JSON response
     def get(endpoint)
       url = URI.join(BASE_URL, endpoint).to_s
       response = @connection.get(url)
