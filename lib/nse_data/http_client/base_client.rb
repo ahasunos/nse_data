@@ -1,14 +1,20 @@
 # frozen_string_literal: true
 
-# lib/nse_data/http_client/base_client.rb
 module NseData
   module HttpClient
     # Base class for HTTP clients
     class BaseClient
+      # Initializes a new instance of the BaseClient class.
+      #
+      # @param base_url [String] The base URL for the HTTP client.
       def initialize(base_url)
         @base_url = base_url
       end
 
+      # Sends a GET request to the specified endpoint.
+      #
+      # @param endpoint [String] The endpoint to send the GET request to.
+      # @raise [NotImplementedError] If the method is not implemented by subclasses.
       def get(endpoint)
         raise NotImplementedError, 'Subclasses must implement the get method'
       end

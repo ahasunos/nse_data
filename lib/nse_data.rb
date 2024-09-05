@@ -9,8 +9,11 @@ require_relative 'nse_data/api_manager'
 module NseData
   class Error < StandardError; end
 
-  # Add any additional code or configuration here
+  # This module provides functionality for accessing NSE data.
 
+  # Returns a list of all available endpoints.
+  #
+  # @return [Array] An array of endpoint names.
   def self.list_all_endpoints
     @list_all_endpoints ||= NseData::APIManager.new.load_endpoints
   end
