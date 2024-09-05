@@ -34,6 +34,7 @@ end
 
 def determine_bump_type
   labels = ENV['PR_LABELS'].to_s
+  puts "PR_LABELS: #{labels}" # Debugging line to check labels
   return 'skip' if labels.include?('skip-version-bump') || labels.include?('ci')
   return 'major' if labels.include?('bump-major')
   return 'minor' if labels.include?('bump-minor')
