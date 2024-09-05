@@ -27,7 +27,9 @@ jobs:
 
     - name: Get Pull Request Labels
       id: get_labels
-      run: echo "PR_LABELS=$(echo '${{ github.event.pull_request.labels }}')" >> $GITHUB_ENV
+      run: |
+        echo "PR_LABELS=$(echo '${{ github.event.pull_request.labels }}')" >> $GITHUB_ENV
+        echo "PR_LABELS=${{ env.PR_LABELS }}" # Debugging line to check labels
 
     - name: Bump version
       run: ruby .github/scripts/version_bump.rb
