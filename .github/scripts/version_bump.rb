@@ -1,4 +1,3 @@
-# .github/scripts/version_bump.rb
 require 'fileutils'
 
 VERSION_FILE = 'lib/nse_data/version.rb'
@@ -35,11 +34,16 @@ end
 
 def determine_bump_type
   labels = ENV['PR_LABELS'].to_s
+  return 'skip' if labels.include?('skip-version-bump') || labels.include?('ci')
   return 'major' if labels.include?('bump-major')
   return 'minor' if labels.include?('bump-minor')
   'patch'
 end
 
 bump_type = determine_bump_type
-bump_version(bump_type)
-puts "Bumped version to #{current_version}"
+if bump_type == 'skip'
+  puts "Skipping version bump due to label presence"
+else
+  bump_version(bump_type)
+  puts "Bumped version to #{current_version}"
+end
