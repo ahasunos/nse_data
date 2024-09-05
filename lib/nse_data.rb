@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'nse_data/version'
-require_relative 'nse_data/client'
-require_relative 'nse_data/api/base'
-require_relative 'nse_data/api/special_preopen'
+require_relative 'nse_data/api_manager'
 
 # The NseData module serves as the namespace for the NSE Data gem,
 # which provides an interface to interact with and retrieve stock market data
@@ -13,12 +11,7 @@ module NseData
 
   # Add any additional code or configuration here
 
-  # Example: Expose classes or methods for easy access
-  def self.client
-    @client ||= Client.new
-  end
-
-  def self.special_preopen_api
-    @special_preopen_api ||= API::SpecialPreopen.new(client)
+  def self.list_all_endpoints
+    @list_all_endpoints ||= NseData::APIManager.new.load_endpoints
   end
 end

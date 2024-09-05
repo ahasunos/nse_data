@@ -1,0 +1,56 @@
+apis:
+  all_indices:
+    path: "allIndices"
+    description: "Fetches data of all available indices."
+
+  circulars:
+    path: "circulars"
+    description: "Provides a list of circulars."
+
+  equity_master:
+    path: "equity-master"
+    description: "Fetches equity master data."
+
+  glossary:
+    path: "cmsContent?url=/glossary"
+    description: "Fetches glossary content."
+
+  holiday_clearing:
+    path: "holiday-master?type=clearing"
+    description: "Fetches clearing holiday data."
+
+  holiday_trading:
+    path: "holiday-master?type=trading"
+    description: "Fetches trading holiday data."
+
+  index_names:
+    path: "index-names"
+    description: "Fetches names of all indices."
+
+  latest_circulars:
+    path: "latest-circular"
+    description: "Provides the latest circulars."
+
+  market_data_pre_open:
+    path: "market-data-pre-open?key=ALL"
+    description: "Fetches market pre-open data for all securities."
+
+  market_status:
+    path: "marketStatus"
+    description: "Fetches the current status of the market."
+
+  market_turnover:
+    path: "market-turnover"
+    description: "Fetches turnover data for the market."
+
+  merged_daily_reports_capital:
+    path: "merged-daily-reports?key=favCapital"
+    description: "Fetches merged daily reports for capital."
+
+  merged_daily_reports_debt:
+    path: "merged-daily-reports?key=favDebt"
+    description: "Fetches merged daily reports for debt."
+
+  merged_daily_reports_derivatives:
+    path: "merged-daily-reports?key=favDerivatives"
+    description: "Fetches merged daily reports for derivatives."
