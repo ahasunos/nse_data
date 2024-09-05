@@ -5,7 +5,7 @@ VERSION_FILE = 'lib/nse_data/version.rb'
 
 def current_version
   version_file = File.read(VERSION_FILE)
-  version_file.match(/VERSION = "(.*)"/)[1]
+  version_file.match(/VERSION = ['"](.*)['"]/)[1]
 end
 
 def bump_version(type)
@@ -29,7 +29,7 @@ end
 
 def update_version_file(new_version)
   content = File.read(VERSION_FILE)
-  new_content = content.sub(/VERSION = ".*"/, "VERSION = \"#{new_version}\"")
+  new_content = content.gsub(/VERSION = ['"].*['"]/, "VERSION = '#{new_version}'")
   File.open(VERSION_FILE, 'w') { |file| file.write(new_content) }
 end
 
