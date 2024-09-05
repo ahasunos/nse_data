@@ -9,6 +9,7 @@ gemspec
 gemspec
 
 group :development do
+  gem 'bundler-audit', require: false
   gem 'byebug'
   gem 'rake', '~> 13.0'
   gem 'rspec', '~> 3.0'
