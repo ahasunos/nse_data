@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = 'Provides real-time stock market data from the NSE of India.'
   spec.homepage = 'https://github.com/ahasunos/nse_data'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 2.6.0'
+  spec.required_ruby_version = '>= 3.1.0'
 
   spec.metadata['allowed_push_host'] = "TODO: Set to your gem server 'https://example.com'"
 
