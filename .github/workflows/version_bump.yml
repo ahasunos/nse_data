@@ -25,11 +25,15 @@ jobs:
     - name: Fetch all history for version bumping
       run: git fetch --prune --unshallow
 
+    - name: Install jq
+      run: sudo apt-get install jq
+
     - name: Get Pull Request Labels
       id: get_labels
       run: |
-        echo "PR_LABELS=$(echo '${{ github.event.pull_request.labels }}')" >> $GITHUB_ENV
-        echo "PR_LABELS=${{ env.PR_LABELS }}" # Debugging line to check labels
+        labels=$(jq -r '.pull_request.labels[].name' < $GITHUB_EVENT_PATH)
+        echo "PR_LABELS=${labels}"
+        echo "PR_LABELS=${labels}" >> $GITHUB_ENV
 
     - name: Bump version
       run: ruby .github/scripts/version_bump.rb
