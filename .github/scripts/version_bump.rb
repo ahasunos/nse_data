@@ -33,11 +33,22 @@ def update_version_file(new_version)
 end
 
 def determine_bump_type
-  labels = ENV['PR_LABELS'].to_s
+  labels = ENV['PR_LABELS'].to_s.split(',')
   puts "PR_LABELS: #{labels}" # Debugging line to check labels
-  return 'skip' if labels.include?('skip-version-bump') || labels.include?('ci')
-  return 'major' if labels.include?('bump-major')
-  return 'minor' if labels.include?('bump-minor')
+
+  # Check if any skip labels are present
+  if labels.any? { |label| label.strip == 'skip-version-bump' || label.strip == 'ci' }
+    return 'skip'
+  end
+
+  # Check if any bump labels are present
+  if labels.any? { |label| label.strip == 'bump-major' }
+    return 'major'
+  elsif labels.any? { |label| label.strip == 'bump-minor' }
+    return 'minor'
+  end
+
+  # Default to patch bump
   'patch'
 end
 
