@@ -31,7 +31,7 @@ jobs:
     - name: Get Pull Request Labels
       id: get_labels
       run: |
-        labels=$(jq -r '.pull_request.labels[].name' < $GITHUB_EVENT_PATH)
+        labels=$(jq -r '.pull_request.labels[].name' < $GITHUB_EVENT_PATH | paste -sd, -)
         echo "PR_LABELS=${labels}"
         echo "PR_LABELS=${labels}" >> $GITHUB_ENV
 
