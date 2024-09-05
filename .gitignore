@@ -45,3 +45,6 @@ Gemfile.lock
 
 # Ignore node module
 node_modules/*
+
+# Ignore .yardoc directory
+.yardoc/*

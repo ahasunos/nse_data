@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-NseData">NseData</h1>
+
+<p><strong>NseData</strong> is a Ruby gem for retrieving stock market data from the National Stock Exchange (NSE) of India. It provides a simple interface to interact with NSE’s APIs and fetch real-time and historical stock market data.</p>
+
+<h2 id="label-Installation">Installation</h2>
+
+<p>Add this line to your application’s Gemfile:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>nse_data</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span>
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_nse_data'>nse_data</span>
+</code></pre>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>To use the gem, create a new instance of the NseData::Client and make API calls:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>nse_data</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="NseData.html" title="NseData (module)">NseData</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="NseData/Client.html" title="NseData::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="NseData/Client.html#initialize-instance_method" title="NseData::Client#initialize (method)">new</a></span></span>
+
+<span class='comment'># Fetch data from the special pre-open listing endpoint
+</span><span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>special-preopen-listing</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># Output the response (which is a Hash)
+</span><span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span>
+</code></pre>
+
+<h2 id="label-Development">Development</h2>
+
+<p>To contribute to this gem, follow these steps:</p>
+<ol><li>
+<p>Fork the repository.</p>
+</li><li>
+<p>Create a new branch (git checkout -b feature-branch).</p>
+</li><li>
+<p>Make your changes.</p>
+</li><li>
+<p>Write tests for your changes.</p>
+</li><li>
+<p>Run the tests (bundle exec rspec).</p>
+</li><li>
+<p>Submit a pull request.</p>
+</li></ol>
+
+<h3 id="label-Running+Tests">Running Tests</h3>
+
+<p>To run the test suite, use:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rspec'>rspec</span>
+</code></pre>
+
+<h3 id="label-Code+Style">Code Style</h3>
+
+<p>The gem uses RuboCop for linting and code style enforcement. Run RuboCop with:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rubocop'>rubocop</span>
+</code></pre>
+
+<h2 id="label-Contributing">Contributing</h2>
+
+<p>Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/ahasunos/nse_data">github.com/ahasunos/nse_data</a>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the of conduct[https://github.com/[USERNAME]/nse_data/blob/master/CODE_OF_CONDUCT.md].</p>
+
+<p>Please make sure to update tests as appropriate.</p>
+
+<h2 id="label-License">License</h2>
+
+<p>The gem is available as open source under the terms of the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<h2 id="label-Code+of+Conduct">Code of Conduct</h2>
+
+<p>Everyone interacting in the NseData project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the of conduct[https://github.com/[USERNAME]/nse_data/blob/master/CODE_OF_CONDUCT.md].</p>
+
+<h2 id="label-Upcoming+Features">Upcoming Features</h2>
+
+<p>Here’s a glimpse of what’s planned for future dev:</p>
+<ul><li>
+<p>Support for Additional Endpoints: We aim to support more NSE API endpoints, allowing you to fetch a wider range of market data.</p>
+</li><li>
+<p>Enhanced Error Handling: Improve the gem’s error handling to provide more informative error messages.</p>
+</li><li>
+<p>Caching Mechanism: Implement caching to reduce the number of API calls and improve performance.</p>
+</li><li>
+<p>Historical Data: Add support for fetching historical market data.</p>
+</li><li>
+<p>Rate Limiting: Integrate rate limiting to handle NSE API’s rate limits more effectively.</p>
+</li><li>
+<p>Improved Documentation: Enhance documentation with more examples and detailed usage instructions.</p>
+</li></ul>
+</div></div>
+
+      <div id="footer">
+  Generated on Thu Sep  5 12:14:01 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.2).
+</div>
+
+    </div>
+  </body>
+</html>
