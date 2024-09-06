@@ -27,7 +27,7 @@ task default: %i[spec rubocop]
 require_relative 'lib/nse_data'
 
 namespace :docs do
-  desc "Update README with dynamically defined methods"
+  desc 'Update README with dynamically defined methods'
   task :update_readme do
     # Ensure the API methods are defined
     NseData.define_api_methods
@@ -56,14 +56,13 @@ namespace :docs do
       updated_content = readme_content.sub(methods_section, new_methods_section)
       File.write(readme_path, updated_content)
 
-      puts "README updated with the following methods:"
+      puts 'README updated with the following methods:'
       methods.each { |method| puts "- #{method}" }
     else
-      puts "Could not find markers to update in README.md"
+      puts 'Could not find markers to update in README.md'
     end
   end
 end
-
 
 # Usage:
 # 1. `rake spec` - Runs the RSpec tests
