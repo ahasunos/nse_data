@@ -1,19 +1,10 @@
 # frozen_string_literal: true
 
-require_relative '../lib/nse_data'
+require 'nse_data'
 
-# Get a special preopen API instance
-api = NseData.special_preopen_api
+apis = NseData.list_all_endpoints
+puts apis
 
-# Fetch data
-response = api.fetch
-# require "byebug"; byebug
-puts response
-
-client = NseData::Client.new
-
-# Fetch data from the special pre-open listing endpoint
-response = client.get('special-preopen-listing')
-
-# Output the response (which is a Hash)
-puts response
+api_manager = NseData::APIManager.new
+response = api_manager.fetch_data('index_names')
+puts response.body
