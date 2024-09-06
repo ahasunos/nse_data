@@ -46,7 +46,22 @@ Or install it yourself as:
 gem install nse_data
 ```
 
-## Available Method
+## Available Methods
+
+- fetch_all_indices
+- fetch_circulars
+- fetch_equity_master
+- fetch_glossary
+- fetch_holiday_clearing
+- fetch_holiday_trading
+- fetch_index_names
+- fetch_latest_circulars
+- fetch_market_data_pre_open
+- fetch_market_status
+- fetch_market_turnover
+- fetch_merged_daily_reports_capital
+- fetch_merged_daily_reports_debt
+- fetch_merged_daily_reports_derivatives
 
 ## Usage
 
