@@ -42,33 +42,24 @@ namespace :docs do
     # Define markers for where to insert the methods section
     start_marker = '## Available Methods'
     end_marker = '## Usage'
-    start_index = readme_content.index(start_marker)
+    start_index = readme_content.index(start_marker) + start_marker.length
     end_index = readme_content.index(end_marker)
 
     if start_index && end_index
-      start_index += start_marker.length
-
-      # Extract current methods section
-      current_methods_section = readme_content[start_index...end_index].strip
-      current_methods_section = current_methods_section.gsub(/^-\s*/, '')  # Remove list bullet
-
-      # Generate new methods section
+      methods_section = readme_content[start_index...end_index]
       new_methods_section = "#{start_marker}\n\n"
       methods.each do |method|
         new_methods_section += "- #{method}\n"
       end
 
-      # Replace old methods section with the new one
-      updated_content = readme_content.sub(/^#{Regexp.escape(current_methods_section)}/m, new_methods_section)
+      # Write back the updated README
+      updated_content = readme_content.sub(methods_section, new_methods_section)
       File.write(readme_path, updated_content)
 
       puts "README updated with the following methods:"
       methods.each { |method| puts "- #{method}" }
     else
       puts "Could not find markers to update in README.md"
-      puts "Make sure the following markers are present in your README.md:"
-      puts "- #{start_marker}"
-      puts "- #{end_marker}"
     end
   end
 end
@@ -79,4 +70,4 @@ end
 # 2. `rake rubocop` - Runs RuboCop linter for code quality checks
 # 3. `rake yard` - Generates Yard documentation (output in the `doc/` folder)
 # 4. `rake` - Runs both the tests and RuboCop checks (default task)
-# 5. `bundle exec rake docs:update_readme` - Updates the README with available methods
+# 5. `rake docs:update_readme` - Update readme with available methods generated dynamically in nse_data.rb
