@@ -12,7 +12,6 @@ module NseData
     def initialize
       @client = NseData::HttpClient::FaradayClient.new(BASE_URL)
       @endpoints = load_endpoints
-      define_api_methods
     end
 
     # Fetches data from the specified API endpoint.
@@ -35,15 +34,7 @@ module NseData
       yaml_content['apis']
     end
 
-    private
-
-    # Defines dynamic API methods based on the loaded endpoints.
-    def define_api_methods
-      @endpoints.each_key do |method_name|
-        self.class.define_method("get_#{method_name}") do
-          fetch_data(method_name)
-        end
-      end
-    end
+    # @return [Hash] The hash containing the loaded API endpoints.
+    attr_reader :endpoints
   end
 end

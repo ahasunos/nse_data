@@ -46,6 +46,23 @@ Or install it yourself as:
 gem install nse_data
 ```
 
+## Available Methods
+
+- fetch_all_indices
+- fetch_circulars
+- fetch_equity_master
+- fetch_glossary
+- fetch_holiday_clearing
+- fetch_holiday_trading
+- fetch_index_names
+- fetch_latest_circulars
+- fetch_market_data_pre_open
+- fetch_market_status
+- fetch_market_turnover
+- fetch_merged_daily_reports_capital
+- fetch_merged_daily_reports_debt
+- fetch_merged_daily_reports_derivatives
+
 ## Usage
 
 ### High-Level Interface
@@ -54,8 +71,8 @@ The high-level interface is designed to be simple and user-friendly. You can ins
 ```ruby
 require 'nse_data'
 
-apis = NseData.list_all_endpoints
-puts apis
+puts NseData.list_all_endpoints # Returns all the available APIs in the library
+puts NseData.fetch_all_indices # Returns the response.body of allIndices endpoint of NSE
 ```
 
 ### Low-Level API
