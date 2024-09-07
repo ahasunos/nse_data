@@ -12,7 +12,8 @@ module NseData
 
     # Initializes a new instance of the APIManager class.
     #
-    # @param cache_store [CacheStore, RedisCacheStore, nil] The cache store to use for caching. If nil, in-memory cache is used.
+    # @param cache_store [CacheStore, RedisCacheStore, nil] The cache store to use for caching.
+    # If nil, in-memory cache is used.
     def initialize(cache_store: nil)
       # Initialize cache policy with the provided cache store or default to in-memory cache.
       @cache_policy = NseData::Cache::CachePolicy.new(cache_store || NseData::Cache::CacheStore.new)
@@ -38,7 +39,7 @@ module NseData
       raise ArgumentError, "Invalid endpoint key: #{endpoint_key}" unless endpoint
 
       # Use cache policy to fetch data, with an option to force refresh.
-      @cache_policy.fetch(endpoint['path'], force_refresh: force_refresh) do
+      @cache_policy.fetch(endpoint['path'], force_refresh:) do
         @client.get(endpoint['path'])
       end
     end
@@ -48,14 +49,12 @@ module NseData
     # @return [Hash] The hash containing the loaded API endpoints.
     # @raise [RuntimeError] If the configuration file is missing or has syntax errors.
     def load_endpoints
-      begin
-        yaml_content = YAML.load_file(File.expand_path('config/api_endpoints.yml', __dir__))
-        yaml_content['apis']
-      rescue Errno::ENOENT => e
-        raise "Configuration file not found: #{e.message}"
-      rescue Psych::SyntaxError => e
-        raise "YAML syntax error: #{e.message}"
-      end
+      yaml_content = YAML.load_file(File.expand_path('config/api_endpoints.yml', __dir__))
+      yaml_content['apis']
+    rescue Errno::ENOENT => e
+      raise "Configuration file not found: #{e.message}"
+    rescue Psych::SyntaxError => e
+      raise "YAML syntax error: #{e.message}"
     end
 
     # @return [Hash] The hash containing the loaded API endpoints.
@@ -71,7 +70,7 @@ module NseData
       @cache_policy.add_no_cache_endpoint('market_status')
 
       # Set custom TTL (time-to-live) for specific endpoints.
-      @cache_policy.add_custom_ttl('equity_master', 600)  # Custom TTL: 10 mins
+      @cache_policy.add_custom_ttl('equity_master', 600) # Custom TTL: 10 mins
     end
   end
 end

@@ -9,11 +9,6 @@ module NseData
   module HttpClient
     # FaradayClient class is responsible for making HTTP requests using Faraday.
     class FaradayClient < BaseClient
-      def initialize(base_url, cache_policy)
-        @base_url = base_url
-        @cache_policy = cache_policy
-      end
-
       # Sends a GET request to the specified endpoint.
       #
       # @param endpoint [String] The endpoint to send the request to.
@@ -21,7 +16,7 @@ module NseData
       # @return [Faraday::Response] The response object.
       def get(endpoint, force_refresh: false)
         # Use the cache policy to determine whether to fetch from cache or refresh.
-        @cache_policy.fetch(endpoint, force_refresh: force_refresh) do
+        @cache_policy.fetch(endpoint, force_refresh:) do
           handle_connection(endpoint) do |connection|
             connection.get(endpoint)
           end

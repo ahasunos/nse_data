@@ -39,20 +39,20 @@ RSpec.describe NseData::APIManager do
     end
 
     it 'fetches data from the correct endpoint using the cache policy' do
-      manager = described_class.new(cache_store: cache_store)
+      manager = described_class.new(cache_store:)
 
       expect(manager.fetch_data('endpoint1')).to eq('data1')
       expect(manager.fetch_data('endpoint2')).to eq('data2')
     end
 
     it 'raises an error for invalid endpoint keys' do
-      manager = described_class.new(cache_store: cache_store)
+      manager = described_class.new(cache_store:)
 
       expect { manager.fetch_data('invalid_key') }.to raise_error(ArgumentError, 'Invalid endpoint key: invalid_key')
     end
 
     it 'forces cache refresh when force_refresh is true' do
-      manager = described_class.new(cache_store: cache_store)
+      manager = described_class.new(cache_store:)
 
       expect(cache_policy).to receive(:fetch).with('/api/endpoint1', force_refresh: true).and_yield.and_return('data1')
 

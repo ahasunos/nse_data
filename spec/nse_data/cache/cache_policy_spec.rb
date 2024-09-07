@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'nse_data/cache/cache_policy'
 require 'nse_data/cache/cache_store'
@@ -9,7 +11,7 @@ RSpec.describe NseData::Cache::CachePolicy do
 
   before do
     cache_policy.add_no_cache_endpoint('/no-cache')
-    cache_policy.add_custom_ttl('/custom-ttl', 600)  # 10 minutes
+    cache_policy.add_custom_ttl('/custom-ttl', 600) # 10 minutes
   end
 
   describe '#use_cache?' do

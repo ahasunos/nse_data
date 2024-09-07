@@ -1,5 +1,13 @@
+# frozen_string_literal: true
+
 module NseData
   module Cache
+    # CachePolicy manages caching behavior, including cache storage and time-to-live (TTL) settings.
+    #
+    # It allows setting global TTLs, custom TTLs for specific endpoints, and controlling which
+    # endpoints should not use the cache.
+    #
+    # @attr_reader [CacheStore] cache_store The cache store used for storing cached data.
     class CachePolicy
       attr_reader :cache_store
 
