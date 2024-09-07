@@ -32,26 +32,34 @@ module NseData
       # @return [Object] The result of the block execution.
       # @raise [Faraday::Error] If there is an error with the connection.
       def handle_connection(endpoint)
-        connection = Faraday.new(url: @base_url) do |faraday|
-          faraday.request :json
-          faraday.headers['User-Agent'] = 'NSEDataClient/1.0'
-          faraday.response :json
-          faraday.headers['Accept'] = 'application/json'
-
-          # Check if the cache policy allows caching for this endpoint
-          if @cache_policy.use_cache?(endpoint)
-            # Fetch the TTL (Time-to-Live) for the endpoint
-            ttl = @cache_policy.ttl_for(endpoint)
-            # Apply HTTP caching middleware with the configured store and expiration time
-            faraday.use :http_cache, store: @cache_policy.cache_store, expire_after: ttl
-          end
-
-          faraday.adapter Faraday.default_adapter
-        end
-
+        connection = build_faraday_connection(endpoint)
         yield(connection)
       rescue Faraday::Error => e
-        raise e.message
+        handle_faraday_error(e)
+      end
+
+      def build_faraday_connection(endpoint)
+        Faraday.new(url: @base_url) do |faraday|
+          configure_faraday(faraday)
+          apply_cache_policy(faraday, endpoint) if @cache_policy.use_cache?(endpoint)
+          faraday.adapter Faraday.default_adapter
+        end
+      end
+
+      def configure_faraday(faraday)
+        faraday.request :json
+        faraday.headers['User-Agent'] = 'NSEDataClient/1.0'
+        faraday.response :json
+        faraday.headers['Accept'] = 'application/json'
+      end
+
+      def apply_cache_policy(faraday, endpoint)
+        ttl = @cache_policy.ttl_for(endpoint)
+        faraday.use :http_cache, store: @cache_policy.cache_store, expire_after: ttl
+      end
+
+      def handle_faraday_error(error)
+        raise error.message
       end
     end
   end
