@@ -66,6 +66,12 @@ module NseData
     #
     # This method sets endpoints that should not be cached and custom TTL values for specific endpoints.
     def configure_cache_policy
+      # TODO: Review and refine cache policy for endpoints.
+      # Plan to analyze the API responses and categorize endpoints into:
+      # - No cache
+      # - Cacheable
+      # - Custom TTL
+
       # Set specific endpoints that should not be cached.
       @cache_policy.add_no_cache_endpoint('market_status')
 
