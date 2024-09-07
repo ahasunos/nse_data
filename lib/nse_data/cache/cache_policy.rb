@@ -59,26 +59,56 @@ module NseData
       # @param force_refresh [Boolean] Whether to force refresh the data, bypassing the cache.
       # @yield The block that fetches fresh data if cache is not used or is stale.
       # @return [Object] The data fetched from cache or fresh data.
-      def fetch(endpoint, force_refresh: false)
-        ttl = @custom_ttls.fetch(endpoint, @global_ttl)
-
+      def fetch(endpoint, force_refresh: false, &block)
         if force_refresh || !use_cache?(endpoint)
-          fresh_data = yield
-          # Ensure that fresh_data is wrapped as a Faraday::Response
-          @cache_store.write(endpoint, fresh_data.body, ttl) if fresh_data.is_a?(Faraday::Response)
-          fresh_data
+          fetch_fresh_data(endpoint, &block)
         else
-          cached_data = @cache_store.read(endpoint)
-          if cached_data
-            # Return cached data wrapped in a Faraday::Response object
-            Faraday::Response.new(body: cached_data)
-          else
-            # Fetch fresh data and store it in the cache
-            fresh_data = yield
-            @cache_store.write(endpoint, fresh_data.body, ttl) if fresh_data.is_a?(Faraday::Response)
-            fresh_data
-          end
+          fetch_cached_or_fresh_data(endpoint, &block)
         end
+      end
+
+      private
+
+      # Fetches fresh data and writes it to the cache if applicable.
+      #
+      # @param endpoint [String] The endpoint to fetch fresh data for.
+      # @yield The block that fetches fresh data.
+      # @return [Object] The fresh data.
+      def fetch_fresh_data(endpoint)
+        fresh_data = yield
+        cache_fresh_data(endpoint, fresh_data)
+        fresh_data
+      end
+
+      # Fetches cached data or fresh data if not available in the cache.
+      #
+      # @param endpoint [String] The endpoint to fetch data for.
+      # @yield The block that fetches fresh data if cache is not used or is stale.
+      # @return [Object] The cached or fresh data.
+      def fetch_cached_or_fresh_data(endpoint, &block)
+        cached_data = @cache_store.read(endpoint)
+        if cached_data
+          Faraday::Response.new(body: cached_data)
+        else
+          fetch_fresh_data(endpoint, &block)
+        end
+      end
+
+      # Writes fresh data to the cache.
+      #
+      # @param endpoint [String] The endpoint for which to store the data.
+      # @param fresh_data [Object] The data to be stored in the cache.
+      def cache_fresh_data(endpoint, fresh_data)
+        ttl = determine_ttl(endpoint)
+        @cache_store.write(endpoint, fresh_data.body, ttl) if fresh_data.is_a?(Faraday::Response)
+      end
+
+      # Determines the TTL value for the given endpoint.
+      #
+      # @param endpoint [String] The endpoint to fetch the TTL for.
+      # @return [Integer] The TTL value in seconds.
+      def determine_ttl(endpoint)
+        @custom_ttls.fetch(endpoint, @global_ttl)
       end
     end
   end
