@@ -3,16 +3,31 @@
 # spec/nse_data/http_client/faraday_client_spec.rb
 require 'spec_helper'
 require 'nse_data/http_client/faraday_client'
+require 'nse_data/cache/cache_policy'
+require 'nse_data/cache/cache_store'
 
 RSpec.describe NseData::HttpClient::FaradayClient do
   let(:base_url) { 'https://www.nseindia.com/api/' }
-  let(:client) { described_class.new(base_url) }
+  let(:cache_store) { NseData::Cache::CacheStore.new }
+  let(:cache_policy) { NseData::Cache::CachePolicy.new(cache_store) }
+  let(:client) { described_class.new(base_url, cache_policy) }
 
   describe '#get' do
-    context 'when a connection is successful' do
-      it 'returns the response body' do
-        endpoint = 'special-preopen-listing'
-        response_body = { 'status' => 'success' }.to_json
+    let(:endpoint) { 'special-preopen-listing' }
+    let(:response_body) { { 'status' => 'success' }.to_json }
+
+    context 'when a connection is successful and data is cached' do
+      it 'returns the cached response if available' do
+        # Cache the response
+        cache_store.write(endpoint, response_body, 300)
+
+        result = client.get(endpoint)
+        expect(JSON.parse(result.body)).to eq('status' => 'success')
+      end
+
+      it 'fetches fresh data if cache is expired' do
+        # Store data in cache but simulate it being expired by setting TTL to 0
+        cache_store.write(endpoint, response_body, 0)
 
         stub_request(:get, "#{base_url}#{endpoint}")
           .with(
@@ -28,8 +43,32 @@ RSpec.describe NseData::HttpClient::FaradayClient do
       end
     end
 
+    context 'when a connection is successful but data is not cached' do
+      it 'fetches fresh data and stores it in the cache' do
+        # Ensure cache is empty
+        expect(cache_store.read(endpoint)).to be_nil
+
+        # Simulate a successful API response
+        stub_request(:get, "#{base_url}#{endpoint}")
+          .with(
+            headers: {
+              'Accept' => 'application/json',
+              'User-Agent' => 'NSEDataClient/1.0'
+            }
+          )
+          .to_return(status: 200, body: response_body, headers: {})
+
+        result = client.get(endpoint)
+        expect(JSON.parse(result.body)).to eq('status' => 'success')
+
+        # Check if the data is cached
+        cached_data = cache_store.read(endpoint)
+        expect(JSON.parse(cached_data)).to eq('status' => 'success')
+      end
+    end
+
     context 'when a connection failure occurs' do
-      it 'raises Faraday::Error' do
+      it 'raises a Faraday::Error' do
         endpoint = 'some-endpoint'
 
         # Simulate a Faraday connection failure
@@ -37,6 +76,30 @@ RSpec.describe NseData::HttpClient::FaradayClient do
           .and_raise(Faraday::Error.new('Connection failed'))
 
         expect { client.get(endpoint) }.to raise_error('Connection failed')
+      end
+    end
+
+    context 'when force_refresh is true' do
+      it 'bypasses the cache and fetches fresh data' do
+        # Cache the response
+        cache_store.write(endpoint, response_body, 300)
+
+        # Simulate a successful API response
+        stub_request(:get, "#{base_url}#{endpoint}")
+          .with(
+            headers: {
+              'Accept' => 'application/json',
+              'User-Agent' => 'NSEDataClient/1.0'
+            }
+          )
+          .to_return(status: 200, body: response_body, headers: {})
+
+        result = client.get(endpoint, force_refresh: true)
+        expect(JSON.parse(result.body)).to eq('status' => 'success')
+
+        # Ensure cache is still there but fresh data was fetched
+        cached_data = cache_store.read(endpoint)
+        expect(JSON.parse(cached_data)).to eq('status' => 'success')
       end
     end
   end

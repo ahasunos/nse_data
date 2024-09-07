@@ -19,5 +19,6 @@ end
 
 group :test do
   gem 'simplecov'
+  gem 'timecop'
   gem 'webmock', '~> 3.0'
 end

@@ -7,8 +7,9 @@ module NseData
       # Initializes a new instance of the BaseClient class.
       #
       # @param base_url [String] The base URL for the HTTP client.
-      def initialize(base_url)
+      def initialize(base_url, cache_policy)
         @base_url = base_url
+        @cache_policy = cache_policy
       end
 
       # Sends a GET request to the specified endpoint.
