@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'faraday', '~> 2.11'
+  spec.add_dependency 'faraday-http-cache', '~> 2.5', '>= 2.5.1'
 end
