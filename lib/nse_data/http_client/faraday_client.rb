@@ -15,6 +15,7 @@ module NseData
       # @param force_refresh [Boolean] Whether to force a cache refresh.
       # @return [Faraday::Response] The response object.
       def get(endpoint, force_refresh: false)
+        NseData.logger.info('Performing an action')
         # Use the cache policy to determine whether to fetch from cache or refresh.
         @cache_policy.fetch(endpoint, force_refresh:) do
           handle_connection(endpoint) do |connection|
