@@ -15,6 +15,8 @@ module NseData
     class Logger < Base
       # Creates a default temporary log file.
       def self.default_log_file
+        return $stdout if ENV['NSE_DEV']
+
         temp_file = Tempfile.new(['nse_data', '.log'])
         temp_file.close # Close the file immediately after creation
         temp_file.path # Return the file path for the Logger
