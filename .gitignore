@@ -49,3 +49,6 @@ node_modules/*
 # Ignore .yardoc directory
 .yardoc/
 .yardoc/**/
+
+# Ignore log files
+*.log
