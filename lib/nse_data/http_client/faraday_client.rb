@@ -15,6 +15,7 @@ module NseData
       # @param force_refresh [Boolean] Whether to force a cache refresh.
       # @return [Faraday::Response] The response object.
       def get(endpoint, force_refresh: false)
+        NseData.logger.debug("#{self.class}##{__method__}: invoking the endpoint #{endpoint}")
         # Use the cache policy to determine whether to fetch from cache or refresh.
         @cache_policy.fetch(endpoint, force_refresh:) do
           handle_connection(endpoint) do |connection|
@@ -35,6 +36,7 @@ module NseData
         connection = build_faraday_connection(endpoint)
         yield(connection)
       rescue Faraday::Error => e
+        NseData.logger.error("#{self.class}##{__method__}: exception is raised - #{e.message}")
         handle_faraday_error(e)
       end
 

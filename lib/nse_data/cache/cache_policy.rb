@@ -75,6 +75,8 @@ module NseData
       # @yield The block that fetches fresh data.
       # @return [Object] The fresh data.
       def fetch_fresh_data(endpoint)
+        NseData.logger.debug("#{self.class}##{__method__}: fetching fresh data for #{endpoint}")
+
         fresh_data = yield
         cache_fresh_data(endpoint, fresh_data)
         fresh_data
@@ -88,6 +90,7 @@ module NseData
       def fetch_cached_or_fresh_data(endpoint, &block)
         cached_data = @cache_store.read(endpoint)
         if cached_data
+          NseData.logger.debug("#{self.class}##{__method__}: fetching cached data for #{endpoint}")
           Faraday::Response.new(body: cached_data)
         else
           fetch_fresh_data(endpoint, &block)

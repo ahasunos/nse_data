@@ -35,6 +35,7 @@ module NseData
     # @return [Faraday::Response] The response object containing the fetched data.
     # @raise [ArgumentError] If the provided endpoint key is invalid.
     def fetch_data(endpoint_key, force_refresh: false)
+      NseData.logger.debug("#{self.class}##{__method__}: fetching data for #{endpoint_key}")
       endpoint = @endpoints[endpoint_key]
       raise ArgumentError, "Invalid endpoint key: #{endpoint_key}" unless endpoint
 
