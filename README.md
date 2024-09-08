@@ -152,6 +152,20 @@ bundle exec rubocop
 
 If RuboCop identifies any issues, it will provide suggestions for how to fix them.
 
+## Debugging
+### NseData::Config::Logger
+The `NseData::Config::Logger` class is part of the NseData gem, providing configurable logging capabilities for your application. By default, it logs to a temporary file in the system's temporary directory, but it can be customized to suit your needs.
+
+#### Usage
+
+By default, the Logger class logs to a temporary file. You can configure it as follows:
+```ruby
+NseData.configure do |config|
+  custom_logger = Logger.new($stdout)
+  config.logger = custom_logger
+end
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/ahasunos/nse_data. For major changes, please open an issue first to discuss what you would like to change.
