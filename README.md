@@ -1,4 +1,6 @@
 # NseData
+[![Gem Version](https://badge.fury.io/rb/nse_data.svg)](https://badge.fury.io/rb/nse_data)
+
 ## Table of Contents
 - [NseData](#nsedata)
   - [Table of Contents](#table-of-contents)
