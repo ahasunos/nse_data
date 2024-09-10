@@ -264,6 +264,22 @@
 
 <p>If RuboCop identifies any issues, it will provide suggestions for how to fix them.</p>
 
+<h2 id="label-Debugging">Debugging</h2>
+
+<h3 id="label-NseData-3A-3AConfig-3A-3ALogger">NseData::Config::Logger</h3>
+
+<p>The <code>NseData::Config::Logger</code> class is part of the NseData gem, providing configurable logging capabilities for your application. By default, it logs to a temporary file in the system’s temporary directory, but it can be customized to suit your needs.</p>
+
+<h4 id="label-Usage">Usage</h4>
+
+<p>By default, the Logger class logs to a temporary file. You can configure it as follows:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="NseData.html" title="NseData (module)">NseData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="NseData.html#configure-class_method" title="NseData.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_custom_logger'>custom_logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='gvar'>$stdout</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='id identifier rubyid_custom_logger'>custom_logger</span>
+<span class='kw'>end</span>
+</code></pre>
+
 <h2 id="label-Contributing">Contributing</h2>
 
 <p>Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/ahasunos/nse_data">github.com/ahasunos/nse_data</a>. For major changes, please open an issue first to discuss what you would like to change.</p>
@@ -278,7 +294,7 @@
 </div></div>
 
       <div id="footer">
-  Generated on Sat Sep  7 18:06:52 2024 by
+  Generated on Tue Sep 10 12:25:13 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.2).
 </div>
