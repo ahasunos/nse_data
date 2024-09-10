@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/nse_data.rb<span class="defines">,<br />
-  lib/nse_data/version.rb,<br /> lib/nse_data/api_manager.rb,<br /> lib/nse_data/cache/cache_store.rb,<br /> lib/nse_data/cache/cache_policy.rb,<br /> lib/nse_data/http_client/base_client.rb,<br /> lib/nse_data/http_client/faraday_client.rb</span>
+  lib/nse_data/version.rb,<br /> lib/nse_data/api_manager.rb,<br /> lib/nse_data/config/base.rb,<br /> lib/nse_data/config/logger.rb,<br /> lib/nse_data/cache/cache_store.rb,<br /> lib/nse_data/cache/cache_policy.rb,<br /> lib/nse_data/http_client/base_client.rb,<br /> lib/nse_data/http_client/faraday_client.rb</span>
 </dd>
   </dl>
   
@@ -100,7 +100,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="NseData/Cache.html" title="NseData::Cache (module)">Cache</a></span>, <span class='object_link'><a href="NseData/HttpClient.html" title="NseData::HttpClient (module)">HttpClient</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="NseData/Cache.html" title="NseData::Cache (module)">Cache</a></span>, <span class='object_link'><a href="NseData/Config.html" title="NseData::Config (module)">Config</a></span>, <span class='object_link'><a href="NseData/HttpClient.html" title="NseData::HttpClient (module)">HttpClient</a></span>
     
   
     
@@ -120,7 +120,7 @@
         <dt id="VERSION-constant" class="">VERSION =
           
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.12</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.0</span><span class='tstring_end'>&#39;</span></span></pre></dd>
       
     </dl>
   
@@ -138,6 +138,30 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#configure-class_method" title="configure (class method)">.<strong>configure</strong> {|config| ... } &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Configure the logger for the NseData gem.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -187,6 +211,30 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#logger-class_method" title="logger (class method)">.<strong>logger</strong>  &#x21d2; Logger </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Access the configured logger.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -197,7 +245,83 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="define_api_methods-class_method">
+  <h3 class="signature first" id="configure-class_method">
+  
+    .<strong>configure</strong> {|config| ... } &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Configure the logger for the NseData gem.</p>
+
+<p>This method allows users to customize the logger used throughout the library. To use it, call ‘NseData.configure` and provide a block to set up the logger.</p>
+
+<p>Example:</p>
+
+<p>NseData.configure do |config|</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_custom_logger'>custom_logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>nse_data.log</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_custom_logger'>custom_logger</span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>DEBUG</span>
+<span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='id identifier rubyid_custom_logger'>custom_logger</span>
+</code></pre>
+
+<p>end</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>config</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="NseData/Config/Logger.html" title="NseData::Config::Logger (class)">NseData::Config::Logger</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The configuration object to be customized.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nse_data.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_configure'>configure</span>
+  <span class='ivar'>@logger_config</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="NseData/Config.html" title="NseData::Config (module)">Config</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="NseData/Config/Logger.html" title="NseData::Config::Logger (class)">Logger</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="NseData/Config/Logger.html#initialize-instance_method" title="NseData::Config::Logger#initialize (method)">new</a></span></span>
+  <span class='kw'>yield</span><span class='lparen'>(</span><span class='ivar'>@logger_config</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_api_methods-class_method">
   
     .<strong>define_api_methods</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -222,19 +346,19 @@
       <pre class="lines">
 
 
-13
-14
 15
 16
 17
 18
 19
-20</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/nse_data.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/nse_data.rb', line 15</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_api_methods'>define_api_methods</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_define_api_methods'>define_api_methods</span>
   <span class='id identifier rubyid_api_manager'>api_manager</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="NseData/APIManager.html" title="NseData::APIManager (class)">APIManager</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="NseData/APIManager.html#initialize-instance_method" title="NseData::APIManager#initialize (method)">new</a></span></span>
   <span class='id identifier rubyid_api_manager'>api_manager</span><span class='period'>.</span><span class='id identifier rubyid_endpoints'>endpoints</span><span class='period'>.</span><span class='id identifier rubyid_each_key'>each_key</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_method_name'>method_name</span><span class='op'>|</span>
     <span class='id identifier rubyid_define_singleton_method'>define_singleton_method</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fetch_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method_name'>method_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -291,15 +415,94 @@
       <pre class="lines">
 
 
-25
-26
-27</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/nse_data.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/nse_data.rb', line 27</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_list_all_endpoints'>list_all_endpoints</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_list_all_endpoints'>list_all_endpoints</span>
   <span class='ivar'>@list_all_endpoints</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="NseData/APIManager.html" title="NseData::APIManager (class)">APIManager</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="NseData/APIManager.html#initialize-instance_method" title="NseData::APIManager#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load_endpoints'><span class='object_link'><a href="NseData/APIManager.html#load_endpoints-instance_method" title="NseData::APIManager#load_endpoints (method)">load_endpoints</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="logger-class_method">
+  
+    .<strong>logger</strong>  &#x21d2; <tt>Logger</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Access the configured logger.</p>
+
+<p>This method returns the Logger instance configured through ‘NseData.configure`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Logger</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The configured Logger instance.</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RuntimeError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If the logger has not been configured.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nse_data.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_logger'>logger</span>
+  <span class='ivar'>@logger_config</span><span class='op'>&amp;.</span><span class='id identifier rubyid_logger'>logger</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Logger not configured. Please call NseData.configure first.</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -311,7 +514,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep  7 18:06:52 2024 by
+  Generated on Tue Sep 10 12:25:13 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.2).
 </div>
