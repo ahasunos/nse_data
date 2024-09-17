@@ -2,45 +2,34 @@
 
 require 'spec_helper'
 require 'nse_data'
-require 'nse_data/api_manager'
+require 'nse_data/nse_api_client'
 
 RSpec.describe NseData do
-  let(:api_manager) { instance_double('NseData::APIManager') }
-  let(:endpoints) do
-    {
-      'market_data' => { 'path' => '/market/data' },
-      'stock_summary' => { 'path' => '/stock/summary' }
-    }
+  let(:client) do
+    instance_double(NseData::NseApiClient, fetch_data: { key: 'value' },
+                                           endpoints: { 'endpoint_key' => 'path/to/endpoint' })
   end
 
   before do
-    allow(NseData::APIManager).to receive(:new).and_return(api_manager)
-    allow(api_manager).to receive(:load_endpoints).and_return(endpoints)
-    allow(api_manager).to receive(:fetch_data).and_return(double('Faraday::Response', body: '{}'))
-    allow(api_manager).to receive(:endpoints).and_return(endpoints)
+    allow(NseData).to receive(:nse_api_client).and_return(client)
     NseData.define_api_methods
   end
 
   describe '.define_api_methods' do
-    it 'dynamically defines methods for each endpoint' do
-      expect(NseData).to respond_to(:fetch_market_data)
-      expect(NseData).to respond_to(:fetch_stock_summary)
-    end
-
-    it 'calls the APIManager to fetch data when method is invoked' do
-      NseData.fetch_market_data
-      expect(api_manager).to have_received(:fetch_data).with('market_data')
-
-      NseData.fetch_stock_summary
-      expect(api_manager).to have_received(:fetch_data).with('stock_summary')
+    it 'dynamically defines fetch methods for each endpoint' do
+      expect(NseData).to respond_to(:fetch_endpoint_key)
     end
   end
 
   describe '.list_all_endpoints' do
-    it 'returns a list of all available endpoints' do
-      expected_endpoints = { 'market_data' => { 'path' => '/market/data' },
-                             'stock_summary' => { 'path' => '/stock/summary' } }
-      expect(NseData.list_all_endpoints).to eq(expected_endpoints)
+    it 'returns a list of all endpoints' do
+      expect(NseData.list_all_endpoints).to eq({ 'endpoint_key' => 'path/to/endpoint' })
+    end
+  end
+
+  describe '.fetch_data' do
+    it 'fetches data from the specified endpoint' do
+      expect(NseData.fetch_data('endpoint_key')).to eq({ key: 'value' })
     end
   end
 end
