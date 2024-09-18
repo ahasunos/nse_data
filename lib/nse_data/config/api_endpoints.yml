@@ -1,3 +1,4 @@
+base_url: https://www.nseindia.com/api/
 apis:
   all_indices:
     path: "allIndices"
