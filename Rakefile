@@ -18,8 +18,10 @@ RuboCop::RakeTask.new
 # Load Yard's rake task for generating documentation using `rake yard`
 require 'yard'
 
-# Define the `yard` task to generate documentation
-YARD::Rake::YardocTask.new
+# Define the `yard` task to generate documentation in the `docs` directory
+YARD::Rake::YardocTask.new do |t|
+  t.options = ['--output-dir', 'docs']
+end
 
 # By default, run both the `spec` (tests) and `rubocop` (linter) tasks
 task default: %i[spec rubocop]
@@ -67,6 +69,6 @@ end
 # Usage:
 # 1. `rake spec` - Runs the RSpec tests
 # 2. `rake rubocop` - Runs RuboCop linter for code quality checks
-# 3. `rake yard` - Generates Yard documentation (output in the `doc/` folder)
+# 3. `rake yard` - Generates Yard documentation (output in the `docs/` folder)
 # 4. `rake` - Runs both the tests and RuboCop checks (default task)
 # 5. `rake docs:update_readme` - Update readme with available methods generated dynamically in nse_data.rb
