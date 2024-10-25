@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="file_list.html?1"></iframe>
+      <iframe id="nav" src="class_list.html?1"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -59,6 +59,8 @@
 
       <div id="content"><div id='filecontents'>
 <h1 id="label-NseData">NseData</h1>
+
+<p><a href="https://badge.fury.io/rb/nse_data"><img src="https://badge.fury.io/rb/nse_data.svg"></a></p>
 
 <h2 id="label-Table+of+Contents">Table of Contents</h2>
 <ul><li>
@@ -179,7 +181,7 @@
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>nse_data</span><span class='tstring_end'>&#39;</span></span>
 
-<span class='id identifier rubyid_api_manager'>api_manager</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="NseData.html" title="NseData (module)">NseData</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="NseData/APIManager.html" title="NseData::APIManager (class)">APIManager</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="NseData/APIManager.html#initialize-instance_method" title="NseData::APIManager#initialize (method)">new</a></span></span>
+<span class='id identifier rubyid_api_manager'>api_manager</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="NseData.html" title="NseData (module)">NseData</a></span></span><span class='op'>::</span><span class='const'>APIManager</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_api_manager'>api_manager</span><span class='period'>.</span><span class='id identifier rubyid_fetch_data'>fetch_data</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>index_names</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='comment'># Returns index names in JSON format
 </span></code></pre>
@@ -274,7 +276,7 @@
 
 <p>By default, the Logger class logs to a temporary file. You can configure it as follows:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="NseData.html" title="NseData (module)">NseData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="NseData.html#configure-class_method" title="NseData.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="NseData.html" title="NseData (module)">NseData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
   <span class='id identifier rubyid_custom_logger'>custom_logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='gvar'>$stdout</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='id identifier rubyid_custom_logger'>custom_logger</span>
 <span class='kw'>end</span>
@@ -294,7 +296,7 @@
 </div></div>
 
       <div id="footer">
-  Generated on Tue Sep 10 12:25:13 2024 by
+  Generated on Fri Oct 25 15:22:53 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.2).
 </div>
